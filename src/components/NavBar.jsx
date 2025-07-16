@@ -28,7 +28,7 @@ const NavBar = () => {
                                 <span className="item-count">{itemCount}</span>
                             )} */}
             </Link>
-            <Link>
+            <Link to="/login">
               <button>Sign In</button>
             </Link>
           </div>
