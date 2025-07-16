@@ -1,11 +1,11 @@
 import { createContext, useReducer } from "react";
 import axios from "axios";
-import UserReducer from "./UserReducer";
+import UserReducer from "./UserReducer"; // make sure this matches your export
 
 const tokenStorage = JSON.parse(localStorage.getItem("token"));
 
 const initialState = {
-  token: tokenStorage ? tokenStorage : null,
+  token: tokenStorage || null,
   user: null,
 };
 
@@ -18,12 +18,11 @@ export const UserProvider = ({ children }) => {
 
   const login = async (user) => {
     const res = await axios.post(`${API_URL}/users/login`, user);
-
     dispatch({
       type: "LOGIN",
       payload: res.data,
     });
-    if (res.data) {
+    if (res.data.token) {
       localStorage.setItem("token", JSON.stringify(res.data.token));
     }
   };
@@ -35,6 +34,8 @@ export const UserProvider = ({ children }) => {
         user: state.user,
         login,
       }}
-    ></UserContext.Provider>
+    >
+      {children}
+    </UserContext.Provider>
   );
 };
