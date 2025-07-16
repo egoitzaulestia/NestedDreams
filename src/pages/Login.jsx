@@ -1,11 +1,19 @@
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext/UserState";
-import { Form, Input, button } from "antd";
+import { Form, Input, Button } from "antd";
 
 const Login = () => {
   const { login } = useContext(UserContext);
 
-  const onFinish = () => {};
+  const onFinish = (values) => {
+    console.log("Values", values);
+    login(values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log(errorInfo);
+  };
+
   return (
     <div className="container">
       <Form
