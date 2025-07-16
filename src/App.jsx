@@ -5,8 +5,9 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Products from "./pages/Products";
-import NavBar from "./components/NavBar";
 import Cart from "./pages/Cart";
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 import { UserProvider } from "./context/UserContext/UserState";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
+          <Footer />
         </BrowserRouter>
       </UserProvider>
     </>
