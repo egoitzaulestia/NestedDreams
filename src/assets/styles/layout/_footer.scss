@@ -1,0 +1,51 @@
+.footer {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 2rem 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-between;
+}
+
+.brand-section {
+    flex: 1 1 100%;
+    max-width: 300px;
+}
+
+.footer-div-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 120px;
+    align-items: flex-start;
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    display: flex;
+    gap: 0.25rem;
+    transition: color 0.2s ease;
+    justify-content: flex-start;
+    align-items: center;
+    width: auto;
+
+    &:hover {
+        color: white;
+    }
+}
+
+.footer-description {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: left;
+}

@@ -5,8 +5,9 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Products from "./pages/Products";
-import NavBar from "./components/NavBar";
 import Cart from "./pages/Cart";
+import NavBar from "./components/NavBar"
+import Footer from "./components/Footer"
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -14,7 +15,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <NavBar />
+      <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
@@ -23,6 +24,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );
