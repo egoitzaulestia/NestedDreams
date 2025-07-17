@@ -15,11 +15,8 @@ const Login = () => {
   const onFinish = async (values) => {
     try {
       await login(values);
-
       // Success: go to products
-      setTimeout(() => {
-        navigate("/products");
-      }, 1000);
+      navigate("/products");
     } catch (err) {
       const msg = err.response?.data?.message || "Login failed";
 

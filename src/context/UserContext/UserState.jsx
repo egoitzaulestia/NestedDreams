@@ -18,6 +18,9 @@ export const UserProvider = ({ children }) => {
 
   const login = async (user) => {
     const res = await axios.post(`${API_URL}/users/login`, user);
+    if (!res.data.token) {
+      throw new Error(res.data.message || "Login failed");
+    }
     dispatch({
       type: "LOGIN",
       payload: res.data,
