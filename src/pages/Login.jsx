@@ -1,13 +1,15 @@
 import "../assets/styles/layout/_login.scss";
-import { Layers, Sparkles, ShoppingBag } from "lucide-react";
-import { Link } from "react-router-dom";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext/UserState";
+
+import { Layers, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Form, Input, Button } from "antd";
 
 const Login = () => {
   const { login } = useContext(UserContext);
+  const [showPassword, setShowPassword] = useState(false);
 
   const onFinish = (values) => {
     console.log("Values", values);
@@ -31,45 +33,59 @@ const Login = () => {
               <p className="card-description">
                 Welcome back to the nested layers of discovery
               </p>
-              <p className="card-description">New to NestedDreams?</p>
-              <div className="container">
-                <Form
-                  name="basic"
-                  labelCol={{ span: 8 }}
-                  wrapperCol={{ span: 16 }}
-                  initialValues={{ remember: true }}
-                  onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
-                  autoComplete="off"
+
+              <Form
+                name="login"
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+              >
+                <Form.Item
+                  name="email"
+                  rules={[
+                    { required: true, message: "Please input your email!" },
+                  ]}
                 >
-                  <Form.Item
-                    label="Email"
-                    name="email"
-                    rules={[
-                      { required: true, message: "Please input your email" },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-                  <Form.Item
-                    label="Password"
-                    name="password"
-                    rules={[
-                      { required: true, message: "Please input your password" },
-                    ]}
-                  >
-                    <Input.Password />
-                  </Form.Item>
-                  <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                      Submit
-                    </Button>
-                  </Form.Item>
-                </Form>
-              </div>
-              <p className="card-description">Create an account</p>
-              <p className="card-description">← Back to home</p>
+                  <Input
+                    className="input"
+                    placeholder="Email address"
+                    prefix={<Mail size={16} className="text-grey-400" />}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your password!",
+                    },
+                  ]}
+                >
+                  <Input.Password
+                    className="input"
+                    placeholder="Password"
+                    prefix={<Lock size={16} className="text-grey-400" />}
+                    iconRender={(visible) =>
+                      visible ? (
+                        <Eye size={16} className="text-grey-400" />
+                      ) : (
+                        <EyeOff size={16} className="text-grey-400" />
+                      )
+                    }
+                  />
+                </Form.Item>
+
+                <Form.Item>
+                  <Button type="primary" htmlType="submit" block>
+                    Enter
+                  </Button>
+                </Form.Item>
+              </Form>
             </div>
+
+            <p className="card-description">New to NestedDreams?</p>
+            <p className="card-description">Create an account</p>
+            <p className="card-description">← Back to home</p>
           </section>
         </div>
       </section>

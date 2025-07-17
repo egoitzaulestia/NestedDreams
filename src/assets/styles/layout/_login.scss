@@ -147,3 +147,42 @@
     background: linear-gradient(to right, #6d22ef, #2d79f2);
   }
 }
+
+// Drop any border on the prefix:
+.ant-input-affix-wrapper.input .ant-input-prefix {
+  border: none !important;
+  padding-right: 0 !important;
+
+  // Shift the text over by e.g. 0.75rem
+  margin-right: 0.75rem !important;
+
+  // keep it grey
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+// Keep your wrapper padding as before:
+.ant-input-affix-wrapper.input {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(6px);
+  border-radius: 8px;
+  padding: 0.75rem 1rem !important;
+}
+
+// Zero out inner <input> padding:
+.input .ant-input {
+  background: transparent !important;
+  color: #fff !important;
+  padding: 0 !important;
+}
+
+// Grey placeholder:
+.input .ant-input::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+// Grey color for suffix buttons like the Eye icon
+.ant-input-affix-wrapper.input .ant-input-suffix,
+.ant-input-affix-wrapper.input .ant-input-suffix button {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
