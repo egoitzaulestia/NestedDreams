@@ -5,9 +5,10 @@ import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext/UserContext";
 
 import { Layers, Mail, Lock, Eye, EyeOff } from "lucide-react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 
 const Login = () => {
+  const [form] = Form.useForm();
   const { login } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -15,7 +16,7 @@ const Login = () => {
     login(values);
 
     setTimeout(() => {
-      navigate("/");
+      navigate("/products");
     }, 1000);
   };
 
@@ -38,15 +39,21 @@ const Login = () => {
               </p>
 
               <Form
+                form={form}
                 name="login"
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
+                layout="vertical"
               >
                 <Form.Item
                   name="email"
                   rules={[
                     { required: true, message: "Please input your email!" },
+                    {
+                      type: "email",
+                      message: "That doen't look like a valid email.",
+                    },
                   ]}
                 >
                   <Input
@@ -61,6 +68,10 @@ const Login = () => {
                     {
                       required: true,
                       message: "Please input your password!",
+                    },
+                    {
+                      min: 6,
+                      message: "Password must be at least 6 characters.",
                     },
                   ]}
                 >
