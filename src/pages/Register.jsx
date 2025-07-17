@@ -100,10 +100,17 @@ const Register = () => {
             </div>
 
             <p className="card-description">Already have an account?</p>
-            <p className="card-description">Sign in instead</p>
-            <Link to="/">
-              <p className="card-description">← Back to home</p>
-            </Link>
+            <p>
+              <Link to="/login" className="card-description">
+                Sign in instead
+              </Link>
+            </p>
+
+            <p>
+              <Link to="/" className="card-description">
+                ← Back to home
+              </Link>
+            </p>
           </section>
         </div>
       </section>

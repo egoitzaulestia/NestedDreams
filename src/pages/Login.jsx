@@ -90,12 +90,12 @@ const Login = () => {
             <p className="card-description">New to NestedDreams?</p>
 
             <p>
-              <Link className="card-description" to="/register">
+              <Link to="/register" className="card-description">
                 Create an account
               </Link>
             </p>
             <p>
-              <Link className="card-description" to="/">
+              <Link to="/" className="card-description">
                 ← Back to home
               </Link>
             </p>
