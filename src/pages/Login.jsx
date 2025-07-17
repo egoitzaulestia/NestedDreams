@@ -1,4 +1,4 @@
-import "../assets/styles/layout/_home.scss";
+import "../assets/styles/layout/_login.scss";
 import { Layers, Sparkles, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 
