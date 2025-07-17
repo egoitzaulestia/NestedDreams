@@ -24,7 +24,6 @@ export const UserProvider = ({ children }) => {
       payload: res.data,
     });
 
-    
     if (res.data.token) {
       localStorage.setItem("token", JSON.stringify(res.data.token));
     }

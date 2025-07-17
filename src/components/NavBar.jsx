@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
-import { House, Package, ShoppingCart } from "lucide-react";
 import "../assets/styles/layout/_navbar.scss";
 
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { House, Package, ShoppingCart } from "lucide-react";
+
+import { UserContext } from "../context/UserContext/UserState";
+
 const NavBar = () => {
+  const navigate = useNavigate();
+  const { token, logout } = useContext(UserContext);
+
   return (
     <nav className="navbar">
       <div className="container">
