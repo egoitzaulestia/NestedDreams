@@ -1,6 +1,7 @@
 import "../assets/styles/layout/_login.scss";
 
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext/UserState";
 
 import { Layers, Mail, Lock, Eye, EyeOff } from "lucide-react";
@@ -9,11 +10,16 @@ import { Form, Input, Button } from "antd";
 
 const Login = () => {
   const { login } = useContext(UserContext);
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const onFinish = (values) => {
     console.log("Values", values);
     login(values);
+
+    setTimeout(() => {
+      navigate("profile");
+    }, 1000);
   };
 
   const onFinishFailed = (errorInfo) => {
