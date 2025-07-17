@@ -16,6 +16,7 @@ const Login = () => {
     try {
       await login(values);
 
+      // Success: go to products
       setTimeout(() => {
         navigate("/products");
       }, 1000);
@@ -24,6 +25,7 @@ const Login = () => {
 
       message.error(msg);
 
+      // We pin the error onto both fields
       form.setFields([
         { name: "email", errors: [msg] },
         { name: "password", errors: [msg] },
