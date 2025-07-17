@@ -5,19 +5,23 @@ import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext/UserContext";
 
 import { Layers, User, Mail, Lock, Eye, EyeOff } from "lucide-react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 
 const Register = () => {
-  // const { login } = useContext(UserContext);
+  const { register } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    console.log("Values", values);
-    // login(values);
+  const onFinish = async (values) => {
+    try {
+      const { message: msg } = await register(values);
 
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
+      message.success(msg || "Please check your email to confirm your account");
+
+      navigate("/login");
+    } catch (err) {
+      console.error("Registration error:", err.response?.data || err);
+      message.error(err.response?.data?.message || "Registration failed");
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -93,7 +97,7 @@ const Register = () => {
 
                 <Form.Item>
                   <Button type="primary" htmlType="submit" block>
-                    Enter
+                    Create Account
                   </Button>
                 </Form.Item>
               </Form>
