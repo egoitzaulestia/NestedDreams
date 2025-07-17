@@ -17,7 +17,7 @@ const Login = () => {
 
     setTimeout(() => {
       navigate("/");
-    }, 1000);
+    }, 1500);
   };
 
   const onFinishFailed = (errorInfo) => {

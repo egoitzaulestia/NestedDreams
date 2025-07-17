@@ -9,10 +9,15 @@ import { UserContext } from "../context/UserContext/UserContext";
 const NavBar = () => {
   // const navigate = useNavigate();
   const { getUserInfo, user, token, logout } = useContext(UserContext);
-
+  const navigate = useNavigate();
   useEffect(() => {
-    getUserInfo();
-  }, []);
+    if (token) {
+      getUserInfo();
+    }
+    setTimeout(() => {
+      navigate("/");
+    }, 1500);
+  }, [token, getUserInfo]);
 
   return (
     <nav className="navbar">
@@ -39,9 +44,6 @@ const NavBar = () => {
                                 <span className="item-count">{itemCount}</span>
                             )} */}
             </Link>
-            {/* <Link to="/login">
-              <button>Sign In</button>
-            </Link> */}
 
             {token && user ? (
               <>
