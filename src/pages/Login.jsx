@@ -1,7 +1,7 @@
 import "../assets/styles/layout/_login.scss";
 
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext/UserContext";
 
 import { Layers, Mail, Lock, Eye, EyeOff } from "lucide-react";
@@ -88,8 +88,17 @@ const Login = () => {
             </div>
 
             <p className="card-description">New to NestedDreams?</p>
-            <p className="card-description">Create an account</p>
-            <p className="card-description">← Back to home</p>
+
+            <p>
+              <Link className="card-description" to="/register">
+                Create an account
+              </Link>
+            </p>
+            <p>
+              <Link className="card-description" to="/">
+                ← Back to home
+              </Link>
+            </p>
           </section>
         </div>
       </section>
