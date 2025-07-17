@@ -12,12 +12,23 @@ const Login = () => {
   const { login } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    login(values);
+  const onFinish = async (values) => {
+    try {
+      await login(values);
 
-    setTimeout(() => {
-      navigate("/products");
-    }, 1000);
+      setTimeout(() => {
+        navigate("/products");
+      }, 1000);
+    } catch (err) {
+      const msg = err.response?.data?.message || "Login failed";
+
+      message.error(msg);
+
+      form.setFields([
+        { name: "email", errors: [msg] },
+        { name: "password", errors: [msg] },
+      ]);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
