@@ -3,10 +3,11 @@ import axios from "axios";
 import UserReducer from "./UserReducer"; // make sure this matches your export
 
 const tokenStorage = JSON.parse(localStorage.getItem("token"));
+const userStorage = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
   token: tokenStorage || null,
-  user: null,
+  user: userStorage || null,
 };
 
 const API_URL = "http://localhost:3000";
@@ -22,6 +23,8 @@ export const UserProvider = ({ children }) => {
       type: "LOGIN",
       payload: res.data,
     });
+
+    
     if (res.data.token) {
       localStorage.setItem("token", JSON.stringify(res.data.token));
     }
