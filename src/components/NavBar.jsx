@@ -2,7 +2,7 @@ import "../assets/styles/layout/_navbar.scss";
 
 import { useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { House, Package, ShoppingCart, User } from "lucide-react";
+import { House, Package, ShoppingCart, User as UserIcon } from "lucide-react";
 
 import { UserContext } from "../context/UserContext/UserContext";
 
@@ -51,7 +51,7 @@ const NavBar = () => {
               <>
                 <Link to="/profile">
                   <button>
-                    <User size={16} />
+                    <UserIcon size={16} />
                     <span> {user.name}</span>
                   </button>
                 </Link>
