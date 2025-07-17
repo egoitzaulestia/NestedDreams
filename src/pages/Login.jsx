@@ -16,7 +16,7 @@ const Login = () => {
     login(values);
 
     setTimeout(() => {
-      navigate("/profile");
+      navigate("/");
     }, 1000);
   };
 
