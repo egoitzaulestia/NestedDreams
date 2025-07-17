@@ -31,24 +31,13 @@ const Login = () => {
               <p className="card-description">
                 Welcome back to the nested layers of discovery
               </p>
-              <p className="card-description">
-                Welcome back to the nested layers of discovery
-              </p>
+              <p className="card-description">New to NestedDreams?</p>
+              <p className="card-description">Create an account</p>
+              <p className="card-description">← Back to home</p>
             </div>
           </section>
         </div>
       </section>
-
-      {/* <section className="header-section">
-        <h2 className="body-title">Ready to dive deeper?</h2>
-        <p className="header-description">
-          The first layer awaits. Register to unlock the hidden dimensions of
-          NestedDreams.
-        </p>
-        <Link to="/register" className="body-button-container">
-          <button className="body-button">Begin Your Journey</button>
-        </Link>
-      </section> */}
     </div>
   );
 
