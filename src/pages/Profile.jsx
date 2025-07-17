@@ -1,9 +1,13 @@
+import { useContext, useEffect } from "react";
+import { UserContext } from "../context/UserContext/UserState";
+
 const Profile = () => {
-  return (
-    <>
-      <h1>Profile</h1>e
-    </>
-  );
+  const { getUserInfo, user } = useContext(UserContext);
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+  return <>{user ? <h1>Profile {user.name}</h1> : <p>Loading...</p>}</>;
 };
 
 export default Profile;
