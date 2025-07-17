@@ -69,10 +69,12 @@ const Register = () => {
               </p>
 
               <Form
+                form={form}
                 name="register"
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
+                layout="vertical"
               >
                 <Form.Item
                   name="name"
@@ -90,6 +92,10 @@ const Register = () => {
                   name="email"
                   rules={[
                     { required: true, message: "Please enter your email!" },
+                    {
+                      type: "email",
+                      message: "That doesn't look like a valid email",
+                    },
                   ]}
                 >
                   <Input
@@ -104,6 +110,10 @@ const Register = () => {
                     {
                       required: true,
                       message: "Please enter your password!",
+                    },
+                    {
+                      min: 6,
+                      message: "Password must be at least 6 characters.",
                     },
                   ]}
                 >
