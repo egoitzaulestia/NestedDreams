@@ -1,14 +1,18 @@
 import "../assets/styles/layout/_navbar.scss";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { House, Package, ShoppingCart } from "lucide-react";
+import { House, Package, ShoppingCart, User } from "lucide-react";
 
 import { UserContext } from "../context/UserContext/UserContext";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const { token, logout } = useContext(UserContext);
+  const { user, token, logout } = useContext(UserContext);
+
+  // useEffect(() => {
+  //   logout();
+  // }, []);
 
   return (
     <nav className="navbar">
@@ -35,9 +39,27 @@ const NavBar = () => {
                                 <span className="item-count">{itemCount}</span>
                             )} */}
             </Link>
-            <Link to="/login">
+            {/* <Link to="/login">
               <button>Sign In</button>
-            </Link>
+            </Link> */}
+
+            {token && user ? (
+              <>
+                <Link to="/profile">
+                  <button>
+                    <User size={16} />
+                    <span> {user.name}</span>
+                  </button>
+                </Link>
+                <Link to="/">
+                  <button>Logout</button>
+                </Link>
+              </>
+            ) : (
+              <Link to="/login">
+                <button>Sign In</button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
