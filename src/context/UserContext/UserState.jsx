@@ -1,6 +1,8 @@
-import { createContext, useReducer } from "react";
+// import { createContext, useReducer } from "react";
+import { useReducer } from "react";
 import axios from "axios";
-import UserReducer from "./UserReducer"; // make sure this matches your export
+import UserReducer from "./UserReducer";
+import { UserContext } from "./UserContext";
 
 const tokenStorage = JSON.parse(localStorage.getItem("token"));
 const userStorage = JSON.parse(localStorage.getItem("user"));
@@ -12,7 +14,7 @@ const initialState = {
 
 const API_URL = "http://localhost:3000";
 
-export const UserContext = createContext(initialState);
+// export const UserContext = createContext(initialState);
 
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(UserReducer, initialState);
