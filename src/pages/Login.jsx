@@ -12,7 +12,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onFinish = (values) => {
-    console.log("Values", values);
     login(values);
 
     setTimeout(() => {

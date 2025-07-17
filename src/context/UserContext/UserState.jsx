@@ -40,6 +40,8 @@ export const UserProvider = ({ children }) => {
 
   const getUserInfo = useCallback(async () => {
     const token = JSON.parse(localStorage.getItem("token"));
+    if (!token) return;
+
     const res = await axios.get(`${API_URL}/users/info`, {
       headers: {
         authorization: token,
