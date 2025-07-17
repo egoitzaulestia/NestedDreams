@@ -26,6 +26,16 @@ export const UserProvider = ({ children }) => {
     if (res.data.token) {
       localStorage.setItem("token", JSON.stringify(res.data.token));
     }
+
+    const profile = await axios.get(`${API_URL}/users/info`, {
+      headers: {
+        authorization: res.data.token,
+      },
+    });
+    dispatch({
+      type: "GET_USER_INFO",
+      payload: profile.data,
+    });
   };
 
   const getUserInfo = async () => {

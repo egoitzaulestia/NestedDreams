@@ -1,23 +1,22 @@
 import "../assets/styles/layout/_navbar.scss";
 
 import { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { House, Package, ShoppingCart, User } from "lucide-react";
 
 import { UserContext } from "../context/UserContext/UserContext";
 
 const NavBar = () => {
-  // const navigate = useNavigate();
+  const location = useLocation();
   const { getUserInfo, user, token, logout } = useContext(UserContext);
-  const navigate = useNavigate();
+
   useEffect(() => {
     if (token) {
       getUserInfo();
     }
-    setTimeout(() => {
-      navigate("/");
-    }, 1500);
   }, [token, getUserInfo]);
+
+  const showProfileLinks = token && user && location.pathname !== "/login";
 
   return (
     <nav className="navbar">
@@ -45,7 +44,7 @@ const NavBar = () => {
                             )} */}
             </Link>
 
-            {token && user ? (
+            {showProfileLinks ? (
               <>
                 <Link to="/profile">
                   <button>
