@@ -4,23 +4,49 @@ import { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext/UserContext";
 
-import { Layers, User, Mail, Lock, Eye, EyeOff } from "lucide-react";
-import { Form, Input, Button, message } from "antd";
+import {
+  Layers,
+  User as UserIcon,
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+} from "lucide-react";
+import { Form, Input, Button, message, Modal } from "antd";
 
 const Register = () => {
   const { register } = useContext(UserContext);
   const navigate = useNavigate();
+  const [form] = Form.useForm();
 
   const onFinish = async (values) => {
     try {
       const { message: msg } = await register(values);
 
-      message.success(msg || "Please check your email to confirm your account");
-
-      navigate("/login");
+      Modal.info({
+        title: "Almost there!",
+        content: (
+          <p>
+            {msg ||
+              "Thanks for signing up! We've sent you a confirmation email."}
+            <br />
+            Please check your inbox and click the link to confirm your account.
+          </p>
+        ),
+        onOk: () => navigate("/login"),
+        okText: "Go to Login",
+      });
     } catch (err) {
-      console.error("Registration error:", err.response?.data || err);
-      message.error(err.response?.data?.message || "Registration failed");
+      const errMsg = err.response?.data?.message || "Registration failed";
+      if (err.response?.data?.message) {
+        form.setFields(
+          err.response.data.errors.map((e) => ({
+            name: e.path,
+            errors: [e.message],
+          }))
+        );
+      }
+      message.error(errMsg);
     }
   };
 
@@ -57,7 +83,7 @@ const Register = () => {
                   <Input
                     className="input"
                     placeholder="Your name"
-                    prefix={<User size={16} className="text-grey-400" />}
+                    prefix={<UserIcon size={16} className="text-grey-400" />}
                   />
                 </Form.Item>
                 <Form.Item
