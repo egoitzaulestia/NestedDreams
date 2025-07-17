@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { House, Package, ShoppingCart } from "lucide-react";
 
-import { UserContext } from "../context/UserContext/UserState";
+import { UserContext } from "../context/UserContext/UserContext";
 
 const NavBar = () => {
   const navigate = useNavigate();

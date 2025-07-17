@@ -2,7 +2,7 @@ import "../assets/styles/layout/_login.scss";
 
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserContext/UserState";
+import { UserContext } from "../context/UserContext/UserContext";
 
 import { Layers, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
