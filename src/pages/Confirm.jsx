@@ -25,7 +25,12 @@ const Confirm = () => {
     };
   }, [emailToken, navigate]);
 
-  return <div>Confirm</div>;
+  return (
+    <div style={{ textAlign: "center", marginTop: "20vh" }}>
+      <Spin size="large" />
+      <p>Confirming your account...</p>
+    </div>
+  );
 };
 
 export default Confirm;
