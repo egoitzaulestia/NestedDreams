@@ -7,12 +7,12 @@ import { House, Package, ShoppingCart, User } from "lucide-react";
 import { UserContext } from "../context/UserContext/UserContext";
 
 const NavBar = () => {
-  const navigate = useNavigate();
-  const { user, token, logout } = useContext(UserContext);
+  // const navigate = useNavigate();
+  const { getUserInfo, user, token, logout } = useContext(UserContext);
 
-  // useEffect(() => {
-  //   logout();
-  // }, []);
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   return (
     <nav className="navbar">
