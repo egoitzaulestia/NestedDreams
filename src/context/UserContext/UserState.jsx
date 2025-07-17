@@ -71,12 +71,19 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const register = async (userData) => {
+    const res = await axios.post(`${API_URL}/users`, userData);
+
+    return res.data;
+  };
+
   return (
     <UserContext.Provider
       value={{
         token: state.token,
         user: state.user,
         login,
+        register,
         getUserInfo,
         logout,
       }}
