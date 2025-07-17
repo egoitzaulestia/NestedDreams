@@ -1,17 +1,15 @@
 import "../assets/styles/layout/_login.scss";
 
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext/UserContext";
 
 import { Layers, Mail, Lock, Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
 import { Form, Input, Button } from "antd";
 
 const Login = () => {
   const { login } = useContext(UserContext);
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
 
   const onFinish = (values) => {
     console.log("Values", values);
