@@ -1,4 +1,3 @@
-// import { createContext, useReducer } from "react";
 import { useReducer } from "react";
 import axios from "axios";
 import UserReducer from "./UserReducer";
@@ -13,8 +12,6 @@ const initialState = {
 };
 
 const API_URL = "http://localhost:3000";
-
-// export const UserContext = createContext(initialState);
 
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(UserReducer, initialState);
