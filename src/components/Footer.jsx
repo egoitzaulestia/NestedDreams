@@ -4,7 +4,7 @@ import "../assets/styles/layout/_footer.scss";
 
 const Footer = () => {
   return (
-    <nav className="footer">
+    <footer className="footer">
       <div className="container">
         <div className="footer-grid">
           <div className="brand-section">
@@ -54,7 +54,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </nav>
+    </footer>
   );
 };
 
