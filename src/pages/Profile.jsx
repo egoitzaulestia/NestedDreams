@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import { UserContext } from "../context/UserContext/UserContext";
 import {
   User as UserIcon,
@@ -12,47 +13,45 @@ import {
 } from "lucide-react";
 import "../assets/styles/layout/_profile.scss";
 
+const API_URL = "htpp://localhost:3000";
+
 const Profile = () => {
-  const { user, token } = useContext(UserContext);
+  const { user, token, getUserInfo } = useContext(UserContext);
   const [stats, setStats] = useState({
     orders: 0,
     favorites: 0,
     joinedDays: 0,
   });
 
-  // ── Fetch dynamic counts ──
-  useEffect(() => {
-    if (!user || !token) return;
+  // useEffect(() => {
+  //   if (!token) return;
 
-    const fetchStats = async () => {
-      try {
-        const [ordersRes, favsRes] = await Promise.all([
-          fetch("/api/orders/count", {
-            headers: { Authorization: token },
-          }).then((r) => r.json()),
-          fetch("/api/favorites/count", {
-            headers: { Authorization: token },
-          }).then((r) => r.json()),
-        ]);
+  //   (async () => {
+  //     try {
+  //       const [ordersRes, favsRes] = await Promise.all([
+  //         axios.get(`${API_URL}/orders/count`, {
+  //           headers: { Authorization: token },
+  //         }),
+  //         axios.get(`${API_URL}/favorites/count`, {
+  //           headers: { Authorization: token },
+  //         }),
+  //       ]);
 
-        const created = new Date(user.createdAt);
-        const now = new Date();
-        const diffDays = Math.floor((now - created) / (1000 * 60 * 60 * 24));
+  //       const created = new Date(user.createdAt);
+  //       const now = new Date();
+  //       const diffDays = Math.floor((now - created) / (1000 * 60 * 60 * 24));
 
-        setStats({
-          orders: ordersRes.count,
-          favorites: favsRes.count,
-          joinedDays: diffDays,
-        });
-      } catch (err) {
-        console.error("Failed to load stats", err);
-      }
-    };
+  //       setStats({
+  //         orders: ordersRes.count,
+  //         favorites: favsRes.count,
+  //         joinedDays: diffDays,
+  //       });
+  //     } catch (err) {
+  //       console.error("Failed to load stats", err);
+  //     }
+  //   })();
+  // }, [user, token]);
 
-    fetchStats();
-  }, [user, token]);
-
-  // ── Guard clause ──
   if (!user) {
     return (
       <div className="profile__empty">
@@ -63,7 +62,6 @@ const Profile = () => {
     );
   }
 
-  // ── Render ──
   return (
     <div className="profile">
       <h1 className="profile__heading">Your Profile</h1>
@@ -78,7 +76,6 @@ const Profile = () => {
             />
             <h2 className="profile-card__title">Profile Information</h2>
           </header>
-
           <div className="profile-card__body">
             <div className="profile-card__user">
               <div className="profile-card__avatar">
@@ -89,7 +86,6 @@ const Profile = () => {
                 <p className="profile-card__email">{user.email}</p>
               </div>
             </div>
-
             <ul className="profile-card__details">
               <li>
                 <Mail size={16} className="detail-icon" />
@@ -100,7 +96,6 @@ const Profile = () => {
                 Role: {user.role || "User"}
               </li>
             </ul>
-
             <Link to="/profile/edit" className="profile-card__btn">
               <Settings size={16} className="btn-icon" />
               Edit Profile
@@ -114,32 +109,38 @@ const Profile = () => {
             <Package className="profile-card__icon" size={23} strokeWidth={2} />
             <h2 className="profile-card__title">Account Overview</h2>
           </header>
-
           <div className="profile-card__body stats-grid">
-            <div className="stats-grid__item">
-              <Package size={24} />
-              <div className="stats-grid__num">{stats.orders}</div>
-              <div className="stats-grid__label">Total Orders</div>
-            </div>
-            <div className="stats-grid__item">
-              <Heart size={24} />
-              <div className="stats-grid__num">{stats.favorites}</div>
-              <div className="stats-grid__label">Favorites</div>
-            </div>
-            <div className="stats-grid__item">
-              <Layers size={24} />
-              <div className="stats-grid__num">
-                {stats.joinedDays < 7
-                  ? "New"
-                  : `${Math.floor(stats.joinedDays / 30)} mo`}
+            {[
+              {
+                icon: <Package size={24} />,
+                num: stats.orders,
+                label: "Total Orders",
+              },
+              {
+                icon: <Heart size={24} />,
+                num: stats.favorites,
+                label: "Favorites",
+              },
+              {
+                icon: <Layers size={24} />,
+                num:
+                  stats.joinedDays < 7
+                    ? "New"
+                    : `${Math.floor(stats.joinedDays / 30)} mo`,
+                label: "Member Status",
+              },
+              {
+                icon: <Layers size={24} />,
+                num: user.layersUnlocked || 1,
+                label: "Layers Unlocked",
+              },
+            ].map(({ icon, num, label }, i) => (
+              <div key={i} className="stats-grid__item">
+                {icon}
+                <div className="stats-grid__num">{num}</div>
+                <div className="stats-grid__label">{label}</div>
               </div>
-              <div className="stats-grid__label">Member Status</div>
-            </div>
-            <div className="stats-grid__item">
-              <Layers size={24} />
-              <div className="stats-grid__num">{user.layersUnlocked || 1}</div>
-              <div className="stats-grid__label">Layers Unlocked</div>
-            </div>
+            ))}
           </div>
         </section>
       </div>
