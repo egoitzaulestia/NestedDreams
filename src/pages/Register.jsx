@@ -39,7 +39,6 @@ const Register = () => {
         // don’t navigate
         return;
       }
-      // other errors
       message.error(err.response?.data?.message || "Registration failed");
     }
   };
