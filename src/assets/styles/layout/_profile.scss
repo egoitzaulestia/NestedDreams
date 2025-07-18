@@ -47,7 +47,7 @@
     display: flex;
     align-items: center;
     padding: 1rem 1.5rem;
-    background: linear-gradient(90deg, #7c3aed, #3b82f6);
+    // background: linear-gradient(90deg, #7c3aed, #3b82f6);
   }
 
   &__icon {
@@ -56,7 +56,7 @@
   }
 
   &__title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: #fff;
     font-weight: 600;
   }
@@ -75,8 +75,8 @@
   }
 
   &__avatar {
-    width: 3rem;
-    height: 3rem;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
     background: linear-gradient(90deg, #a855f7, #3b82f6);
     display: flex;
@@ -85,13 +85,19 @@
     color: #fff;
   }
 
+  &__info-detail {
+    text-align: left;
+  }
+
   &__name {
     font-size: 1.25rem;
     font-weight: 600;
+    margin: 20px 0 0 0;
   }
 
   &__email {
     color: rgba(255, 255, 255, 0.7);
+    margin: -3px 0 20px 0;
   }
 
   &__details {

@@ -71,16 +71,20 @@ const Profile = () => {
         {/* Profile Info */}
         <section className="profile-card profile-card--info">
           <header className="profile-card__header">
-            <UserIcon className="profile-card__icon" size={20} />
+            <UserIcon
+              className="profile-card__icon"
+              size={23}
+              strokeWidth={2}
+            />
             <h2 className="profile-card__title">Profile Information</h2>
           </header>
 
           <div className="profile-card__body">
             <div className="profile-card__user">
               <div className="profile-card__avatar">
-                <UserIcon size={24} />
+                <UserIcon size={34} strokeWidth={1.5} />
               </div>
-              <div>
+              <div className="profile-card__info-detail">
                 <h3 className="profile-card__name">{user.name}</h3>
                 <p className="profile-card__email">{user.email}</p>
               </div>
@@ -107,7 +111,7 @@ const Profile = () => {
         {/* Stats */}
         <section className="profile-card profile-card--stats">
           <header className="profile-card__header">
-            <Package className="profile-card__icon" size={20} />
+            <Package className="profile-card__icon" size={23} strokeWidth={2} />
             <h2 className="profile-card__title">Account Overview</h2>
           </header>
 
