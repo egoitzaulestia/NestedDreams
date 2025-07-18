@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { MoveLeft, ShoppingCart } from 'lucide-react'
-import { useCart } from '../contexts/CartContext'
+import { useCart } from '../context/CartContext/CartContext'
 import { useState } from 'react'
 import { mockProducts } from '../components/MockProducts'
 import '../assets/styles/layout/_productDetail.scss'

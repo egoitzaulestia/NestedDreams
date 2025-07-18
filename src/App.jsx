@@ -11,8 +11,6 @@ import NavBar from "./components/NavBar"
 import Footer from "./components/Footer"
 import { CartProvider } from "./context/CartContext/CartContext";
 import ProductDetail from "./pages/ProductDetail";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
 import Confirm from "./pages/Confirm";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
