@@ -1,8 +1,26 @@
-import { Link } from "react-router-dom";
-import { House, Package, ShoppingCart } from "lucide-react";
 import "../assets/styles/layout/_navbar.scss";
 
+import { useContext, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { House, Package, ShoppingCart, User as UserIcon } from "lucide-react";
+
+import { UserContext } from "../context/UserContext/UserContext";
+
 const NavBar = () => {
+  const location = useLocation();
+  const { getUserInfo, user, token, logout } = useContext(UserContext);
+
+  useEffect(() => {
+    if (token) {
+      getUserInfo();
+    }
+  }, [token, getUserInfo]);
+
+  const showProfileLinks = token && user && location.pathname !== "/login";
+
+  const onLogout = () => {
+    logout();
+  };
   return (
     <nav className="navbar">
       <div className="container">
@@ -28,9 +46,24 @@ const NavBar = () => {
                                 <span className="item-count">{itemCount}</span>
                             )} */}
             </Link>
-            <Link to="/login">
-              <button>Sign In</button>
-            </Link>
+
+            {showProfileLinks ? (
+              <>
+                <Link to="/profile">
+                  <button>
+                    <UserIcon size={16} />
+                    <span> {user.name}</span>
+                  </button>
+                </Link>
+                <Link to="/">
+                  <button onClick={onLogout}>Logout</button>
+                </Link>
+              </>
+            ) : (
+              <Link to="/login">
+                <button>Sign In</button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
