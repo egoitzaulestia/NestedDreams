@@ -10,7 +10,7 @@ const Confirm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    async () => {
+    (async () => {
       try {
         await axios.get(`${API_URL}/users/confirm/${emailToken}`);
         message.success("Your email is confirmed! you can now log in");
@@ -22,7 +22,7 @@ const Confirm = () => {
       } finally {
         setTimeout(() => navigate("/login"), 1500);
       }
-    };
+    })(); // We invoke the async function here with '()'
   }, [emailToken, navigate]);
 
   return (

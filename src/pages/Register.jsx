@@ -12,7 +12,7 @@ import {
   Eye,
   EyeOff,
 } from "lucide-react";
-import { Form, Input, Button, message, Modal } from "antd";
+import { Form, Input, Button, message } from "antd";
 
 const Register = () => {
   const { register } = useContext(UserContext);
@@ -21,32 +21,26 @@ const Register = () => {
 
   const onFinish = async (values) => {
     try {
+      // Call register only once
       const { message: msg } = await register(values);
-
-      Modal.info({
-        title: "Almost there!",
-        content: (
-          <p>
-            {msg ||
-              "Thanks for signing up! We've sent you a confirmation email."}
-            <br />
-            Please check your inbox and click the link to confirm your account.
-          </p>
-        ),
-        onOk: () => navigate("/login"),
-        okText: "Go to Login",
-      });
+      navigate("/check-email");
+      message.success(
+        msg || "Thanks! Check your email to confirm, then log in.",
+        1.5
+      );
     } catch (err) {
-      const errMsg = err.response?.data?.message || "Registration failed";
-      if (err.response?.data?.message) {
+      if (err.response?.status === 400 && err.response.data.errors) {
         form.setFields(
           err.response.data.errors.map((e) => ({
             name: e.path,
             errors: [e.message],
           }))
         );
+        // don’t navigate
+        return;
       }
-      message.error(errMsg);
+      // other errors
+      message.error(err.response?.data?.message || "Registration failed");
     }
   };
 
