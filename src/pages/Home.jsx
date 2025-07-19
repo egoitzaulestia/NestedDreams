@@ -65,7 +65,7 @@ const Home = () => {
           The first layer awaits. Register to unlock the hidden dimensions of
           NestedDreams.
         </p>
-        <Link to="/login" className="body-button-container">
+        <Link to="/login" className="home-body-button-container">
           <button className="body-button">Begin Your Journey</button>
         </Link>
       </section>
