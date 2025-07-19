@@ -1,7 +1,7 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   text-align: center;
 }
 
@@ -9,7 +9,8 @@ body, html, #root {
   min-height: 100vh;
   color: white;
   background: linear-gradient(to right, #4b2fae, #1e40af);
-
+  margin: 0;
+  padding: 0;
 }
 
 .logo {

@@ -3,6 +3,15 @@
 .products-page {
   padding: 2rem 1rem;
   color: white;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  
+  // Container for consistent margins
+  .products-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
 }
 
 // Header Section

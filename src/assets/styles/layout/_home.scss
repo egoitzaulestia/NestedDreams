@@ -1,5 +1,17 @@
 // Home header
 
+.page-wrap {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  
+  // Container for consistent margins
+  .home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+}
+
 .header-section {
   text-align: center;
   padding: 5rem 1rem;

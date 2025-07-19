@@ -118,55 +118,59 @@ const AdminProducts = () => {
     );
   }
 
-  if (loading) return <p>Loading pruducts...</p>;
+  if (loading) return <p>Loading products...</p>;
   if (error) return <p className="error">{error}</p>;
 
   return (
     <section className="admin-product-list">
-      <header className="admin-product-list__header">
-        <h1>Admin Panel</h1>
-        <Link to="admin/products/new" className="btn btn--primary">
-          + Add Product
-        </Link>
-      </header>
+      <div className="admin-container">
+        <header className="admin-product-list__header">
+          <h1>
+            <Shield /> Admin Panel
+          </h1>
+          <Link to="admin/products/new" className="btn btn--primary">
+            + Add Product
+          </Link>
+        </header>
 
-      <table className="admin-product-list__table">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((p) => (
-            <tr key={p.id}>
-              <td className="product-cell">
-                <img src={p.imageUrl} alr={p.name} />
-                <div>
-                  <strong>{p.name}</strong>
-                  <p>{p.description}</p>
-                </div>
-              </td>
-              <td>€{p.price}</td>
-              <td>{p.stock}</td>
-              <td className="actions-cell">
-                <Link to={`/admin/products/${p.id}/edit`}>
-                  <SquarePen />
-                </Link>
-                <button
-                  onClick={() => {
-                    /*TODO: delete*/
-                  }}
-                >
-                  <Trash2 />
-                </button>
-              </td>
+        <table className="admin-product-list__table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {products.map((p) => (
+              <tr key={p.id}>
+                <td className="product-cell">
+                  <img src={p.imageUrl} alt={p.name} />
+                  <div>
+                    <strong>{p.name}</strong>
+                    <p>{p.description}</p>
+                  </div>
+                </td>
+                <td>€{p.price}</td>
+                <td>{p.stock}</td>
+                <td className="actions-cell">
+                  <Link to={`/admin/products/${p.id}/edit`}>
+                    <SquarePen />
+                  </Link>
+                  <button
+                    onClick={() => {
+                      /*TODO: delete*/
+                    }}
+                  >
+                    <Trash2 />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 };
