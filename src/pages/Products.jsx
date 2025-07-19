@@ -46,7 +46,7 @@ const Products = () => {
       </div>
 
       {/* Search and Filter */}
-      <div className="flex flex-col md:flex-row gap-4 px-4">
+      <div className="flex flex-col md:flex-row px-4">
         <div className="relative flex-2">
           <Search
             className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"
@@ -60,7 +60,7 @@ const Products = () => {
             className="pl-10 py-2 w-full rounded bg-white/10 border border-white/20 text-white placeholder:text-white/50"
           />
         </div>
-        <button className="border border-white/20 text-white px-4 py-2 rounded flex items-center">
+        <button className="border border-white/20 text-white hover:bg-white/10 px-4 py-2 rounded flex items-center">
           <Filter size={18} />
           Filters
         </button>
