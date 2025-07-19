@@ -4,11 +4,12 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import Admin from "./pages/Admin";
 import CheckEmail from "./pages/CheckEmail";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
-import NavBar from "./components/NavBar"
-import Footer from "./components/Footer"
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 import { CartProvider } from "./context/CartContext/CartContext";
 import ProductDetail from "./pages/ProductDetail";
 import Confirm from "./pages/Confirm";
@@ -31,9 +32,9 @@ function App() {
               <Route path="/product-detail/:id" element={<ProductDetail />} />
               <Route path="/check-email" element={<CheckEmail />} />
               <Route path="/confirm/:emailToken" element={<Confirm />} />
-              <Route path="/products" element={<Products />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/admin" element={<Admin />} />
             </Routes>
             <Footer />
           </BrowserRouter>
