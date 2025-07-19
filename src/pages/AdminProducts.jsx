@@ -89,17 +89,6 @@ const AdminProducts = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // We redirect non-admin
-  if (!user || user.RoleId !== 2 || user.RoleId !== 3) {
-    return (
-      <div className="admin__empty">
-        <h2 className="admin__empty-title">
-          You must be an Admin or Superadmin to view this page.
-        </h2>
-      </div>
-    );
-  }
-
   // Fetch all products on mount
   useEffect(() => {
     const fetchProducts = async () => {
@@ -117,6 +106,17 @@ const AdminProducts = () => {
     };
     fetchProducts();
   }, [token]);
+
+  // We redirect non-admin
+  if (!user || (user.RoleId !== 2 && user.RoleId !== 3)) {
+    return (
+      <div className="admin__empty">
+        <h2 className="admin__empty-title">
+          You must be an Admin or Superadmin to view this page.
+        </h2>
+      </div>
+    );
+  }
 
   if (loading) return <p>Loading pruducts...</p>;
   if (error) return <p className="error">{error}</p>;

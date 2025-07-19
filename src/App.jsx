@@ -34,7 +34,8 @@ function App() {
               <Route path="/confirm/:emailToken" element={<Confirm />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/admin" element={<AdminProducts />} />
+              {/* <Route path="/admin" element={<AdminProducts />} /> */}
+              <Route path="/admin/products" element={<AdminProducts />} />
             </Routes>
             <Footer />
           </BrowserRouter>
