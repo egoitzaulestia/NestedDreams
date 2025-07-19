@@ -40,29 +40,31 @@ const Admin = () => {
             <h2 className="admin-card__title">Admin Information</h2>
           </header>
           <div className="admin-card__body">
-            <div className="admin-card__user">
-              <div className="admin-card__avatar">
-                <UserIcon size={34} strokeWidth={1.5} />
+            <div className="admin-card admin-card__body">
+              <div className="admin-card__user">
+                <div className="admin-card__avatar">
+                  <UserIcon size={34} strokeWidth={1.5} />
+                </div>
+                <div className="admin-card__info-detail">
+                  <h3 className="admin-card__name">{user.name}</h3>
+                  <p className="admin-card__email">{user.email}</p>
+                </div>
               </div>
-              <div className="admin-card__info-detail">
-                <h3 className="admin-card__name">{user.name}</h3>
-                <p className="admin-card__email">{user.email}</p>
-              </div>
+              <ul className="admin-card__details">
+                <li>
+                  <Mail size={16} className="detail-icon" />
+                  Email: {user.email}
+                </li>
+                <li>
+                  <Shield size={16} className="detail-icon" />
+                  Role: {user.role || "User"}
+                </li>
+              </ul>
+              <Link to="/profile/edit" className="admin-card__btn">
+                <Settings size={16} className="btn-icon" />
+                Edit Profile
+              </Link>
             </div>
-            <ul className="admin-card__details">
-              <li>
-                <Mail size={16} className="detail-icon" />
-                Email: {user.email}
-              </li>
-              <li>
-                <Shield size={16} className="detail-icon" />
-                Role: {user.role || "User"}
-              </li>
-            </ul>
-            <Link to="/profile/edit" className="admin-card__btn">
-              <Settings size={16} className="btn-icon" />
-              Edit Profile
-            </Link>
           </div>
         </section>
       </div>
