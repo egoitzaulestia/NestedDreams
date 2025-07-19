@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
-import Admin from "./pages/Admin";
+import AdminProducts from "./pages/AdminProducts";
 import CheckEmail from "./pages/CheckEmail";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
@@ -34,7 +34,7 @@ function App() {
               <Route path="/confirm/:emailToken" element={<Confirm />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin" element={<AdminProducts />} />
             </Routes>
             <Footer />
           </BrowserRouter>
