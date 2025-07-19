@@ -12,11 +12,11 @@ import {
   Layers,
   Settings,
 } from "lucide-react";
-import "../assets/styles/layout/_admin.scss";
+import "../assets/styles/layout/_adminProducts.scss";
 
 const API_URL = "http://localhost:3000";
 
-const Admin = () => {
+const AdminProducts = () => {
   const { user, token } = useContext(UserContext);
 
   if (!user) {
@@ -72,4 +72,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default AdminProducts;
