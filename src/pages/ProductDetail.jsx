@@ -35,50 +35,42 @@ const ProductDetail = () => {
 
     return (
         <div>
-            <Link to='/products'>
+            <div className='link-container'>
+                <Link to='/products' className='header-link'>
                 <MoveLeft />
-
-                Return to products
-
+                <p>Return to products</p>
             </Link>
+            </div>
 
-            <section>
-                <img src={product.image} alt={product.name} />
-            </section>
+            <div className='body-container'>
+                <section className='image-container'>
+                    <img src={product.image} alt={product.name} />
+                </section>
 
-            <section>
-                <div>
-                    <h1>{product.name}</h1>
-                    <p>{product.description}</p>
-                </div>
+                <section className='text-container'>
+                    <div className='text'>
+                        <h1>{product.name}</h1>
+                        <p>{product.description}</p>
+                    </div>
 
-                <div>${product.price}</div>
+                    <div className='price'>${product.price}</div>
 
-                <div>
-                    <button onClick={handleAddToCart}>
-                        <ShoppingCart />
-                    </button>
+                    <div className='button-container'>
+                        <button onClick={handleAddToCart} className='button'>
+                            <ShoppingCart />
+                            <p>Add to Cart</p>
+                        </button>
 
-                    {showMessage && (
-                        <p>
-                            Product added to cart.
-                        </p>
-                    )}
-                </div>
-            </section>
-
-            <section>
-                <h2>About this layer</h2>
-                <p>{product.fullDescription}</p>
-                <p>{product.features}</p>
-            </section>
+                        {showMessage && (
+                            <p>
+                                Product added to cart.
+                            </p>
+                        )}
+                    </div>
+                </section>
+            </div>
         </div>
     )
 }
 
 export default ProductDetail
-
-
-// < Link to = {`/product-detail/${product.id}`}>
-//     <button className="product-button">View Details</button>
-//         </ >
