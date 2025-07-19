@@ -35,11 +35,11 @@ const ProductDetail = () => {
 
     return (
         <div>
-            <MoveLeft />
             <Link to='/products'>
-                <button>
-                    Return to products
-                </button>
+                <MoveLeft />
+
+                Return to products
+
             </Link>
 
             <section>
@@ -55,10 +55,8 @@ const ProductDetail = () => {
                 <div>${product.price}</div>
 
                 <div>
-                    <button onClick={handleAddToCart}
-                        disabled={!product.inStock}>
+                    <button onClick={handleAddToCart}>
                         <ShoppingCart />
-                        {product.inStock ? 'Add to Cart' : 'Out of Stock'}
                     </button>
 
                     {showMessage && (
@@ -81,6 +79,6 @@ const ProductDetail = () => {
 export default ProductDetail
 
 
-    // < Link to = {`/product-detail/${product.id}`}>
-    //     <button className="product-button">View Details</button>
-    //         </ >
+// < Link to = {`/product-detail/${product.id}`}>
+//     <button className="product-button">View Details</button>
+//         </ >

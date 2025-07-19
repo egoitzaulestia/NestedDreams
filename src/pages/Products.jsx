@@ -1,13 +1,21 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useCart } from '../context/CartContext/CartContext'
+import { Link, useParams } from 'react-router-dom'
 import { Search, Filter, Star, ShoppingCart } from "lucide-react";
 import "../assets/styles/layout/_products.scss";
 import { mockProducts } from "../components/MockProducts";
 
 const Products = () => {
+  const { id } = useParams();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(mockProducts);
-  const [cartItems, setCartItems] = useState([]);
+  // const [cartItems, setCartItems] = useState([]);
+
+  const { addToCart } = useCart();
+
+  const [showMessage, setShowMessage] = useState(false);
+
+  const product = mockProducts.find(p => p.id === id);
 
   const handleSearch = (term) => {
     setSearchTerm(term);
@@ -19,20 +27,12 @@ const Products = () => {
     setFilteredProducts(filtered);
   };
 
-  const addToCart = (product) => {
-    setCartItems((prev) => {
-      const existingItem = prev.find((item) => item.id === product.id);
-      if (existingItem) {
-        return prev.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      return [...prev, { ...product, quantity: 1 }];
-    });
-    alert(`${product.name} added to your dream collection!`);
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setShowMessage(true);
+    setTimeout(() => setShowMessage(false), 3000);
   };
+
 
   return (
     <div className="products-page text-white">
@@ -98,16 +98,21 @@ const Products = () => {
                     ${product.price}
                   </span>
                   <div className="flex space-x-2">
-                    <Link to={`/products/${product.id}`}>
+                    <Link to={`/product-detail/${product.id}`}>
                       <button className="body-button text-sm">Explore</button>
                     </Link>
                     <button
-                      onClick={() => addToCart(product)}
+                      onClick={() => handleAddToCart(product)}
                       className="body-button text-sm flex items-center"
                     >
                       <ShoppingCart size={16} className="mr-1" />
                       Add
                     </button>
+                    {showMessage && (
+                      <p>
+                        Product added to cart.
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
