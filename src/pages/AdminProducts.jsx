@@ -79,7 +79,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../context/UserContext/UserContext";
 import { Shield, SquarePen, Trash2 } from "lucide-react";
-import "../assets/styles/layout/_adminProducts";
+import "../assets/styles/layout/_adminProducts.scss";
 
 const API_URL = "http://localhost:3000";
 
@@ -87,7 +87,7 @@ const AdminProducts = () => {
   const { user, token } = useContext(UserContext);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = userState(null);
+  const [error, setError] = useState(null);
 
   // We redirect non-admin
   if (!user || user.RoleId !== 2 || user.RoleId !== 3) {
@@ -99,7 +99,76 @@ const AdminProducts = () => {
       </div>
     );
   }
-  return <div>AdminProducts</div>;
+
+  // Fetch all products on mount
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/products`, {
+          headers: { authorization: token },
+        });
+        setProducts(res.data);
+      } catch (err) {
+        console.error(err);
+        setError("Could not load products");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, [token]);
+
+  if (loading) return <p>Loading pruducts...</p>;
+  if (error) return <p className="error">{error}</p>;
+
+  return (
+    <section className="admin-product-list">
+      <header className="admin-product-list__header">
+        <h1>Admin Panel</h1>
+        <Link to="admin/products/new" className="btn btn--primary">
+          + Add Product
+        </Link>
+      </header>
+
+      <table className="admin-product-list__table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((p) => (
+            <tr key={p.id}>
+              <td className="product-cell">
+                <img src={p.imageUrl} alr={p.name} />
+                <div>
+                  <strong>{p.name}</strong>
+                  <p>{p.description}</p>
+                </div>
+              </td>
+              <td>€{p.price}</td>
+              <td>{p.stock}</td>
+              <td className="actions-cell">
+                <Link to={`/admin/products/${p.id}/edit`}>
+                  <SquarePen />
+                </Link>
+                <button
+                  onClick={() => {
+                    /*TODO: delete*/
+                  }}
+                >
+                  <Trash2 />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  );
 };
 
 export default AdminProducts;
