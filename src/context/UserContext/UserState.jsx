@@ -1,4 +1,4 @@
-import { useReducer, useCallback, useEffect } from "react";
+import { useReducer, useCallback } from "react";
 import axios from "axios";
 import UserReducer from "./UserReducer";
 import { UserContext } from "./UserContext";
@@ -56,12 +56,6 @@ export const UserProvider = ({ children }) => {
     });
     return res;
   }, []);
-
-  useEffect(() => {
-    if (state.token && !state.user) {
-      getUserInfo();
-    }
-  }, [state.token, state.user, getUserInfo]);
 
   const logout = async () => {
     const token = JSON.parse(localStorage.getItem("token"));

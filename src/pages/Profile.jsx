@@ -13,44 +13,47 @@ import {
 } from "lucide-react";
 import "../assets/styles/layout/_profile.scss";
 
-const API_URL = "htpp://localhost:3000";
+const API_URL = "http://localhost:3000";
 
 const Profile = () => {
-  const { user, token, getUserInfo } = useContext(UserContext);
+  const { user, token } = useContext(UserContext);
   const [stats, setStats] = useState({
     orders: 0,
     favorites: 0,
     joinedDays: 0,
   });
 
-  // useEffect(() => {
-  //   if (!token) return;
+  useEffect(() => {
+    if (!token) return;
 
-  //   (async () => {
-  //     try {
-  //       const [ordersRes, favsRes] = await Promise.all([
-  //         axios.get(`${API_URL}/orders/count`, {
-  //           headers: { Authorization: token },
-  //         }),
-  //         axios.get(`${API_URL}/favorites/count`, {
-  //           headers: { Authorization: token },
-  //         }),
-  //       ]);
+    const fetchStats = async () => {
+      try {
+        // We fetch the user orders
+        const res = await axios.get(`${API_URL}/users/with-orders`, {
+          headers: { authorization: token },
+        });
 
-  //       const created = new Date(user.createdAt);
-  //       const now = new Date();
-  //       const diffDays = Math.floor((now - created) / (1000 * 60 * 60 * 24));
+        // We count how many orders
+        const ordersCount = Array.isArray(res.data.orders)
+          ? res.data.orders.length
+          : 0;
 
-  //       setStats({
-  //         orders: ordersRes.count,
-  //         favorites: favsRes.count,
-  //         joinedDays: diffDays,
-  //       });
-  //     } catch (err) {
-  //       console.error("Failed to load stats", err);
-  //     }
-  //   })();
-  // }, [user, token]);
+        const createdAt = new Date(res.data.createdAt);
+        const now = Date.now();
+        const joinedDays = Math.floor((now - createdAt) / (1000 * 60 * 24));
+
+        setStats({
+          orders: ordersCount,
+          favorites: 0,
+          joinedDays,
+        });
+      } catch (err) {
+        console.error("Failed to load stats", err);
+      }
+    };
+
+    fetchStats();
+  }, [token]);
 
   if (!user) {
     return (
