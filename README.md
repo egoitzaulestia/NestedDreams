@@ -41,6 +41,20 @@ A modern e-commerce platform built with React that offers an immersive shopping 
 | **SCSS** | Latest | Advanced Styling |
 | **Lucide React** | Latest | Icon Library |
 
+## 🔗 Backend API
+
+This frontend application is designed to work with a dedicated backend API:
+
+**[🛒 E-Commerce Backend API](https://github.com/egoitzaulestia/backend-project-one)** - A robust RESTful API built with Node.js, Express, and Sequelize (MySQL) that provides:
+
+- **JWT Authentication** with Bcrypt password hashing
+- **Role-based access control** (Admin/User)
+- **CRUD Operations** for Products, Categories, Orders, Users
+- **Database Relationships** with MySQL and Sequelize
+- **Image Uploads** using Multer middleware
+- **Product Reviews & Ratings** system
+- **Advanced Filtering** and search capabilities
+
 ## 📁 Project Structure
 
 ```
@@ -147,7 +161,7 @@ VITE_APP_NAME=NestedDreams
 ```
 
 ### Backend Integration
-The frontend is designed to work with a Node.js/Express backend API. Ensure your backend provides these endpoints:
+The frontend is designed to work with our dedicated **[E-Commerce Backend API](https://github.com/egoitzaulestia/backend-project-one)**. The backend provides these key endpoints:
 
 - `GET /products` - Fetch all products
 - `POST /products` - Create new product (admin)
@@ -155,6 +169,8 @@ The frontend is designed to work with a Node.js/Express backend API. Ensure your
 - `DELETE /products/:id` - Delete product (admin)
 - `POST /auth/login` - User authentication
 - `POST /auth/register` - User registration
+- `GET /users/with-orders` - User profile with order history
+- `POST /reviews` - Product reviews and ratings
 
 ## 🤝 Contributing
 
@@ -210,9 +226,13 @@ npm run build
 ## 🎉 Team
 
 ### Developers
-- **[Iker Prieto](https://github.com/IkerPrieto)** 
-- **[Iñaki Míguez](https://github.com/IGNA46img)** 
-- **[Egoitz Aulestia Padilla](https://github.com/egoitzaulestia)** 
+- **[Iker Prieto](https://github.com/IkerPrieto)** - Frontend Developer
+- **[Iñaki Míguez](https://github.com/IGNA46img)** - Backend Developer  
+- **[Egoitz Aulestia Padilla](https://github.com/egoitzaulestia)** - Project Lead & Full Stack Developer
+
+### Project Components
+- **[Frontend Repository](https://github.com/egoitzaulestia/NestedDreams)** - React/Vite E-commerce UI
+- **[Backend Repository](https://github.com/egoitzaulestia/backend-project-one)** - Node.js/Express API
 
 ### Special Thanks
 - TheBridge Full Stack Developer Bootcamp
