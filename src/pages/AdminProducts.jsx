@@ -1,84 +1,8 @@
-// import React, { useContext } from "react";
-// import { Link } from "react-router-dom";
-// // import axios from "axios";
-// import { UserContext } from "../context/UserContext/UserContext";
-// import {
-//   User as UserIcon,
-//   Mail,
-//   Shield,
-//   SquarePen,
-//   Package,
-//   Heart,
-//   Layers,
-//   Settings,
-// } from "lucide-react";
-// import "../assets/styles/layout/_adminProducts.scss";
-
-// const API_URL = "http://localhost:3000";
-
-// const AdminProducts = () => {
-//   const { user, token } = useContext(UserContext);
-
-//   if (!user) {
-//     return (
-//       <div className="admin__empty">
-//         <h2 className="admin__empty-title">
-//           Please sign in to view your profile
-//         </h2>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="admin">
-//       <h1 className="admin__heading">Admin Panel</h1>
-//       <div className="admin__grid">
-//         {/* Admin Info */}
-//         <section className="admin-card admin-card--info">
-//           <header className="admin-card__header">
-//             <Shield className="admin-card__icon" size={23} strokeWidth={2} />
-//             <h2 className="admin-card__title">Admin Information</h2>
-//           </header>
-//           <div className="admin-card__body">
-//             <div className="admin-card admin-card__body">
-//               <div className="admin-card__user">
-//                 <div className="admin-card__avatar">
-//                   <UserIcon size={34} strokeWidth={1.5} />
-//                 </div>
-//                 <div className="admin-card__info-detail">
-//                   <h3 className="admin-card__name">{user.name}</h3>
-//                   <p className="admin-card__email">{user.email}</p>
-//                 </div>
-//               </div>
-//               <ul className="admin-card__details">
-//                 <li>
-//                   <Mail size={16} className="detail-icon" />
-//                   Email: {user.email}
-//                 </li>
-//                 <li>
-//                   <Shield size={16} className="detail-icon" />
-//                   Role: {user.role || "User"}
-//                 </li>
-//               </ul>
-//               <Link to="/profile/edit" className="admin-card__btn">
-//                 <Settings size={16} className="btn-icon" />
-//                 Edit Profile
-//               </Link>
-//             </div>
-//           </div>
-//         </section>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AdminProducts;
-
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../context/UserContext/UserContext";
-import { Shield, SquarePen, Trash2 } from "lucide-react";
+import { Shield, SquarePen, Trash2, Plus, Loader2, AlertCircle } from "lucide-react";
 import "../assets/styles/layout/_adminProducts.scss";
 
 const API_URL = "http://localhost:3000";
@@ -88,6 +12,7 @@ const AdminProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [deleteLoading, setDeleteLoading] = useState(null);
 
   // Fetch all products on mount
   useEffect(() => {
@@ -107,71 +32,150 @@ const AdminProducts = () => {
     fetchProducts();
   }, [token]);
 
+  const handleDelete = async (productId) => {
+    if (!window.confirm("Are you sure you want to delete this product?")) {
+      return;
+    }
+
+    setDeleteLoading(productId);
+    try {
+      await axios.delete(`${API_URL}/products/id/${productId}`, {
+        headers: { authorization: token },
+      });
+      setProducts(products.filter(p => p.id !== productId));
+    } catch (err) {
+      console.error("Failed to delete product:", err);
+      alert("Failed to delete product");
+    } finally {
+      setDeleteLoading(null);
+    }
+  };
+
   // We redirect non-admin
   if (!user || (user.RoleId !== 2 && user.RoleId !== 3)) {
     return (
-      <div className="admin__empty">
-        <h2 className="admin__empty-title">
-          You must be an Admin or Superadmin to view this page.
-        </h2>
+      <div className="admin-page">
+        <div className="admin-container">
+          <div className="admin-page__unauthorized">
+            <AlertCircle size={48} />
+            <h2>Access Denied</h2>
+            <p>You must be an Admin or Superadmin to view this page.</p>
+          </div>
+        </div>
       </div>
     );
   }
 
-  if (loading) return <p>Loading products...</p>;
-  if (error) return <p className="error">{error}</p>;
+  if (loading) {
+    return (
+      <div className="admin-page">
+        <div className="admin-container">
+          <div className="admin-page__loading">
+            <Loader2 size={48} className="loading-spinner" />
+            <p>Loading products...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="admin-page">
+        <div className="admin-container">
+          <div className="admin-page__error">
+            <AlertCircle size={48} />
+            <h2>Error</h2>
+            <p>{error}</p>
+            <button onClick={() => window.location.reload()} className="retry-btn">
+              Try Again
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <section className="admin-product-list">
+    <div className="admin-page">
       <div className="admin-container">
-        <header className="admin-product-list__header">
-          <h1>
-            <Shield /> Admin Panel
-          </h1>
-          <Link to="admin/products/new" className="btn btn--primary">
-            + Add Product
+        <header className="admin-page__header">
+          <div className="admin-page__title">
+            <Shield size={32} />
+            <h1>Admin Panel</h1>
+          </div>
+          <p className="admin-page__subtitle">Manage your products inventory</p>
+          <Link to="/admin/products/new" className="add-product-btn">
+            <Plus size={20} />
+            <span>Add Product</span>
           </Link>
         </header>
 
-        <table className="admin-product-list__table">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Stock</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((p) => (
-              <tr key={p.id}>
-                <td className="product-cell">
-                  <img src={p.imageUrl} alt={p.name} />
-                  <div>
-                    <strong>{p.name}</strong>
-                    <p>{p.description}</p>
-                  </div>
-                </td>
-                <td>€{p.price}</td>
-                <td>{p.stock}</td>
-                <td className="actions-cell">
-                  <Link to={`/admin/products/${p.id}/edit`}>
-                    <SquarePen />
-                  </Link>
-                  <button
-                    onClick={() => {
-                      /*TODO: delete*/
-                    }}
-                  >
-                    <Trash2 />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="admin-page__content">
+          {products.length === 0 ? (
+            <div className="admin-page__empty">
+              <Shield size={64} />
+              <h2>No Products Found</h2>
+              <p>Start by adding your first product to the inventory.</p>
+              <Link to="/admin/products/new" className="add-first-product-btn">
+                <Plus size={20} />
+                <span>Add Your First Product</span>
+              </Link>
+            </div>
+          ) : (
+            <div className="products-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((product) => (
+                    <tr key={product.id}>
+                      <td className="product-cell">
+                        <img src={product.imageUrl} alt={product.name} />
+                        <div className="product-info">
+                          <strong>{product.name}</strong>
+                          <p>{product.description}</p>
+                        </div>
+                      </td>
+                      <td className="price-cell">€{product.price}</td>
+                      <td className="stock-cell">
+                        <span className={`stock-badge ${product.stock < 10 ? 'low' : 'normal'}`}>
+                          {product.stock}
+                        </span>
+                      </td>
+                      <td className="actions-cell">
+                        <Link to={`/admin/products/${product.id}/edit`} className="edit-btn">
+                          <SquarePen size={18} />
+                          <span>Edit</span>
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(product.id)}
+                          className="delete-btn"
+                          disabled={deleteLoading === product.id}
+                        >
+                          {deleteLoading === product.id ? (
+                            <Loader2 size={18} className="loading-spinner" />
+                          ) : (
+                            <Trash2 size={18} />
+                          )}
+                          <span>Delete</span>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 
